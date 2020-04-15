@@ -15,11 +15,13 @@ import {
   State
 } from "react-native-gesture-handler";
 import {
-  Vector,
   onGestureEvent,
+  pinchActive,
+  pinchBegan,
   timing,
   transformOrigin,
-  translate
+  translate,
+  vec
 } from "react-native-redash";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
@@ -61,9 +63,9 @@ export default ({
   pinchRefs,
   scrollView
 }: PostProps) => {
-  const origin = Vector.create(0, 0);
-  const pinch = Vector.create(0, 0);
-  const focal = Vector.create(0, 0);
+  const origin = vec.createValue(0, 0);
+  const pinch = vec.createValue(0, 0);
+  const focal = vec.createValue(0, 0);
   const scale = new Value(1);
   const pinchGestureHandler = onGestureEvent({
     scale,
@@ -72,25 +74,20 @@ export default ({
     focalY: focal.y
   });
   const zIndex = cond(eq(state, State.ACTIVE), 3, 0);
-  const adjustedFocal = Vector.add(
+  const adjustedFocal = vec.add(
     {
       x: -SIZE / 2,
       y: -SIZE / 2
     },
     focal
   );
-  // See: https://github.com/kmagiera/react-native-gesture-handler/issues/553
-  const pinchBegan =
-    Platform.OS === "ios"
-      ? eq(state, State.BEGAN)
-      : eq(diff(state), State.ACTIVE - State.BEGAN);
   useCode(
     () =>
       block([
-        cond(pinchBegan, Vector.set(origin, adjustedFocal)),
+        cond(pinchBegan(state), vec.set(origin, adjustedFocal)),
         cond(
-          eq(state, State.ACTIVE),
-          Vector.set(pinch, Vector.invert(Vector.sub(origin, adjustedFocal)))
+          pinchActive(state),
+          vec.set(pinch, vec.invert(vec.sub(origin, adjustedFocal)))
         ),
         cond(eq(state, State.END), [
           set(pinch.x, timing({ from: pinch.x, to: 0 })),
@@ -98,7 +95,7 @@ export default ({
           set(scale, timing({ from: scale, to: 1 }))
         ])
       ]),
-    [adjustedFocal, origin, pinch, pinchBegan, scale, state]
+    [adjustedFocal, origin, pinch, scale, state]
   );
   return (
     <>
