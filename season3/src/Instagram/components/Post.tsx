@@ -1,18 +1,17 @@
 import React, { RefObject } from "react";
-import { Dimensions, Platform, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
   Value,
   block,
   cond,
-  diff,
   eq,
   set,
-  useCode
+  useCode,
 } from "react-native-reanimated";
 import {
   PinchGestureHandler,
   ScrollView,
-  State
+  State,
 } from "react-native-gesture-handler";
 import {
   onGestureEvent,
@@ -21,7 +20,7 @@ import {
   timing,
   transformOrigin,
   translate,
-  vec
+  vec,
 } from "react-native-redash";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
@@ -33,8 +32,8 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     width: undefined,
     height: undefined,
-    resizeMode: "cover"
-  }
+    resizeMode: "cover",
+  },
 });
 
 interface Post {
@@ -61,23 +60,25 @@ export default ({
   state,
   pinchRef,
   pinchRefs,
-  scrollView
+  scrollView,
 }: PostProps) => {
   const origin = vec.createValue(0, 0);
   const pinch = vec.createValue(0, 0);
   const focal = vec.createValue(0, 0);
   const scale = new Value(1);
+  const numberOfPointers = new Value(0);
   const pinchGestureHandler = onGestureEvent({
+    numberOfPointers,
     scale,
     state,
     focalX: focal.x,
-    focalY: focal.y
+    focalY: focal.y,
   });
   const zIndex = cond(eq(state, State.ACTIVE), 3, 0);
   const adjustedFocal = vec.add(
     {
       x: -SIZE / 2,
-      y: -SIZE / 2
+      y: -SIZE / 2,
     },
     focal
   );
@@ -86,16 +87,16 @@ export default ({
       block([
         cond(pinchBegan(state), vec.set(origin, adjustedFocal)),
         cond(
-          pinchActive(state),
+          pinchActive(state, numberOfPointers),
           vec.set(pinch, vec.invert(vec.sub(origin, adjustedFocal)))
         ),
         cond(eq(state, State.END), [
           set(pinch.x, timing({ from: pinch.x, to: 0 })),
           set(pinch.y, timing({ from: pinch.y, to: 0 })),
-          set(scale, timing({ from: scale, to: 1 }))
-        ])
+          set(scale, timing({ from: scale, to: 1 })),
+        ]),
       ]),
-    [adjustedFocal, origin, pinch, scale, state]
+    [adjustedFocal, numberOfPointers, origin, pinch, scale, state]
   );
   return (
     <>
@@ -105,7 +106,7 @@ export default ({
           ref={pinchRef}
           simultaneousHandlers={[
             scrollView,
-            ...pinchRefs.filter(ref => ref !== pinchRef)
+            ...pinchRefs.filter((ref) => ref !== pinchRef),
           ]}
           {...pinchGestureHandler}
         >
@@ -116,9 +117,9 @@ export default ({
                 {
                   transform: [
                     ...translate(pinch),
-                    ...transformOrigin(origin, { scale })
-                  ]
-                }
+                    ...transformOrigin(origin, { scale }),
+                  ],
+                },
               ]}
               source={{ uri: post.picture.uri }}
             />
