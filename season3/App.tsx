@@ -26,7 +26,9 @@ import Airbnb, {
   assets as airbnbAssets,
   fonts as airbnbFonts,
 } from "./src/Airbnb";
+import WhatsApp, { assets as whatsAppAssets } from "./src/WhatsApp";
 import Hue from "./src/Hue";
+import UberEatsSwipe, { assets as uberEatsAssets2 } from "./src/UberEatsSwipe";
 
 enableScreens();
 
@@ -36,8 +38,10 @@ const assets: number[] = [
   ...liquidSwipeAssets,
   ...chromeAssets,
   ...uberEatsAssets,
+  ...uberEatsAssets2,
   ...airbnbAssets,
   ...componentAssets,
+  ...whatsAppAssets,
 ];
 
 const AppNavigator = createAppContainer(
@@ -108,6 +112,19 @@ const AppNavigator = createAppContainer(
         screen: Hue,
         navigationOptions: {
           title: "Hue",
+          header: () => null,
+        },
+      },
+      WhatsApp: {
+        screen: WhatsApp,
+        navigationOptions: {
+          title: "WhatsApp",
+        },
+      },
+      UberEatsSwipe: {
+        screen: UberEatsSwipe,
+        navigationOptions: {
+          title: "Uber Eats Swipe-to-Delete",
           header: () => null,
         },
       },
