@@ -10,7 +10,6 @@ import Animated, {
   not,
   set,
   useCode,
-  max,
 } from "react-native-reanimated";
 import {
   PanGestureHandler,
@@ -18,14 +17,15 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import {
-  clamp,
   snapPoint,
   timing,
   useClock,
   usePanGestureHandler,
   useValue,
-  min,
+  minus,
+  clamp,
 } from "react-native-redash";
+
 import ItemLayout, { ItemModel, HEIGHT } from "./ItemLayout";
 import Action from "./Action";
 
@@ -65,7 +65,7 @@ const Item = ({ item, onSwipe }: ItemProps) => {
     () => [
       cond(
         eq(state, State.ACTIVE),
-        set(translateX, add(offsetX, min(translation.x, 0)))
+        set(translateX, add(offsetX, clamp(translation.x,  -9999, minus(offsetX) )))
       ),
       cond(eq(state, State.END), [
         set(translateX, timing({ clock, from: translateX, to })),
