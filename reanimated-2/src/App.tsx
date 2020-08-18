@@ -9,6 +9,8 @@ import Transitions from "./Transitions";
 import Worklets from "./Worklets";
 import Coinbase from "./Coinbase";
 import JellyScroll from "./JellyScroll";
+import MaskedView from "./MaskedView";
+import Accordion from "./Accordion";
 
 const Stack = createStackNavigator<Routes>();
 const AppNavigator = () => (
@@ -54,6 +56,20 @@ const AppNavigator = () => (
       component={JellyScroll}
       options={{
         title: "Jelly Scroll",
+      }}
+    />
+    <Stack.Screen
+      name="MaskedView"
+      component={MaskedView}
+      options={{
+        title: "Masked View",
+      }}
+    />
+    <Stack.Screen
+      name="Accordion"
+      component={Accordion}
+      options={{
+        title: "Accordion",
       }}
     />
   </Stack.Navigator>
