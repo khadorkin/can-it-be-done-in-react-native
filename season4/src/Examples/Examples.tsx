@@ -12,12 +12,30 @@ export const examples = [
     screen: "Duolingo",
     title: "🦉 Duolingo",
   },
-  /*
   {
-    screen: "Coinbase",
-    title: "📉 Coinbase",
+    screen: "Rainbow",
+    title: "🌈 Rainbow",
   },
-  */
+  {
+    screen: "Snapchat",
+    title: "👻 Snapchat",
+  },
+  {
+    screen: "PhilzCoffee",
+    title: "☕️ Philz Coffee",
+  },
+  {
+    screen: "Chrome",
+    title: "🧭 Google Chrome",
+  },
+  {
+    screen: "Reflectly",
+    title: "🧘‍♀️ Reflectly",
+  },
+  {
+    screen: "Chanel",
+    title: "👗 Chanel",
+  },
 ] as const;
 
 const styles = StyleSheet.create({

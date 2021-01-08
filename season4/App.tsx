@@ -3,9 +3,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { Routes } from "./src/Routes";
 import Examples from "./src/Examples";
-import Coinbase from "./src/Coinbase";
+import Rainbow from "./src/Rainbow";
+import Chrome from "./src/Chrome";
 import Duolingo, { assets as duolingoAssets } from "./src/Duolingo";
+import Snapchat, { assets as snapChatAssets } from "./src/Snapchat";
+import PhilzCoffee, { assets as philzCoffeeAssets } from "./src/PhilzCoffee";
+import Chanel, { assets as chanelAssets } from "./src/Chanel";
 import { LoadAssets } from "./src/components";
+import Reflectly from "./src/Reflectly";
 
 const fonts = {
   "SFProDisplay-Bold": require("./assets/fonts/SFPro/SF-Pro-Display-Bold.otf"),
@@ -14,9 +19,17 @@ const fonts = {
   "SFProDisplay-Medium": require("./assets/fonts/SFPro/SF-Pro-Display-Medium.otf"),
   "Nunito-Bold": require("./assets/fonts/Nunito/Nunito-Bold.ttf"),
   "Nunito-Regular": require("./assets/fonts/Nunito/Nunito-Regular.ttf"),
+  "GothamRounded-Medium": require("./assets/fonts/GothamRounded/GothamRounded-Medium.otf"),
+  "GothamRounded-Bold": require("./assets/fonts/GothamRounded/GothamRounded-Bold.otf"),
+  "GothamRounded-Light": require("./assets/fonts/GothamRounded/GothamRounded-Light.otf"),
 };
 
-const assets = [...duolingoAssets];
+const assets = [
+  ...duolingoAssets,
+  ...snapChatAssets,
+  ...philzCoffeeAssets,
+  ...chanelAssets,
+];
 
 const Stack = createStackNavigator<Routes>();
 const AppNavigator = () => (
@@ -32,14 +45,53 @@ const AppNavigator = () => (
       name="Duolingo"
       component={Duolingo}
       options={{
-        title: "Duolingo",
+        title: "🦉 Duolingo",
       }}
     />
     <Stack.Screen
-      name="Coinbase"
-      component={Coinbase}
+      name="Rainbow"
+      component={Rainbow}
       options={{
-        title: "Coinbase",
+        title: "🌈 Rainbow",
+      }}
+    />
+    <Stack.Screen
+      name="Chrome"
+      component={Chrome}
+      options={{
+        title: "🧭 Google Chrome",
+        header: () => null,
+      }}
+    />
+    <Stack.Screen
+      name="PhilzCoffee"
+      component={PhilzCoffee}
+      options={{
+        title: "☕️ Philz Coffee",
+      }}
+    />
+    <Stack.Screen
+      name="Snapchat"
+      component={Snapchat}
+      options={{
+        title: "👻 Snapchat",
+        header: () => null,
+      }}
+    />
+    <Stack.Screen
+      name="Reflectly"
+      component={Reflectly}
+      options={{
+        title: "🧘‍♀️ Reflectly",
+        header: () => null,
+      }}
+    />
+    <Stack.Screen
+      name="Chanel"
+      component={Chanel}
+      options={{
+        title: "👗 Chanel",
+        header: () => null,
       }}
     />
   </Stack.Navigator>
