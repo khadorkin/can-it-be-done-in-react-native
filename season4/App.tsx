@@ -9,8 +9,9 @@ import Duolingo, { assets as duolingoAssets } from "./src/Duolingo";
 import Snapchat, { assets as snapChatAssets } from "./src/Snapchat";
 import PhilzCoffee, { assets as philzCoffeeAssets } from "./src/PhilzCoffee";
 import Chanel, { assets as chanelAssets } from "./src/Chanel";
+import { Reflectly, ColorSelection } from "./src/Reflectly";
 import { LoadAssets } from "./src/components";
-import Reflectly from "./src/Reflectly";
+import Chess, { assets as chessAssets } from "./src/Chess";
 
 const fonts = {
   "SFProDisplay-Bold": require("./assets/fonts/SFPro/SF-Pro-Display-Bold.otf"),
@@ -29,6 +30,7 @@ const assets = [
   ...snapChatAssets,
   ...philzCoffeeAssets,
   ...chanelAssets,
+  ...chessAssets,
 ];
 
 const Stack = createStackNavigator<Routes>();
@@ -79,19 +81,33 @@ const AppNavigator = () => (
       }}
     />
     <Stack.Screen
-      name="Reflectly"
-      component={Reflectly}
-      options={{
-        title: "🧘‍♀️ Reflectly",
-        header: () => null,
-      }}
-    />
-    <Stack.Screen
       name="Chanel"
       component={Chanel}
       options={{
         title: "👗 Chanel",
         header: () => null,
+      }}
+    />
+    <Stack.Screen
+      name="ColorSelection"
+      component={ColorSelection}
+      options={{
+        title: "🤖 Color Selection",
+      }}
+    />
+    <Stack.Screen
+      name="Chess"
+      component={Chess}
+      options={{
+        title: "♟ Chess",
+        header: () => null,
+      }}
+    />
+    <Stack.Screen
+      name="Reflectly"
+      component={Reflectly}
+      options={{
+        title: "🤖 Reflectly Tabbar",
       }}
     />
   </Stack.Navigator>
@@ -105,4 +121,5 @@ const App = () => {
   );
 };
 
+// eslint-disable-next-line ts-exports/unused-exports
 export default App;

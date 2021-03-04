@@ -8,13 +8,13 @@ import data from "./data.json";
 
 export const SIZE = Dimensions.get("window").width;
 
-export interface Amount {
+interface Amount {
   amount: string;
   currency: string;
   scale: string;
 }
 
-export interface PercentChange {
+interface PercentChange {
   hour: number;
   day: number;
   week: number;
@@ -22,21 +22,20 @@ export interface PercentChange {
   year: number;
 }
 
-export interface LatestPrice {
+interface LatestPrice {
   amount: Amount;
   timestamp: string;
   percent_change: PercentChange;
 }
 
-export type Price = [string, number];
-export type PriceList = [string, number][];
+type PriceList = [string, number][];
 
-export interface DataPoints {
+interface DataPoints {
   percent_change: number;
   prices: PriceList;
 }
 
-export interface Prices {
+interface Prices {
   latest: string;
   latest_price: LatestPrice;
   hour: DataPoints;
@@ -45,14 +44,6 @@ export interface Prices {
   month: DataPoints;
   year: DataPoints;
   all: DataPoints;
-}
-
-export interface Data {
-  base: string;
-  base_id: string;
-  unit_price_scale: number;
-  currency: string;
-  prices: Prices;
 }
 
 const values = data.data.prices as Prices;
@@ -112,4 +103,6 @@ export const graphs = [
     value: 4,
     data: buildGraph(values.all, "All time"),
   },
-];
+] as const;
+
+export type GraphIndex = 0 | 1 | 2 | 3 | 4;

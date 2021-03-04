@@ -7,4 +7,6 @@ export type Routes = {
   Chrome: undefined;
   Snapchat: undefined;
   Reflectly: undefined;
+  Chess: undefined;
+  ColorSelection: undefined;
 };
